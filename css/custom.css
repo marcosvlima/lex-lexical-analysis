@@ -31,3 +31,16 @@ header {
 .h-img {
     background-image: url(../img/logo.png);
 }
+
+.my-card{
+  width: 590px;
+  height: 100px;
+}
+
+.my-right{
+  float: right;
+}
+
+.my-left{
+  float:left;
+}
