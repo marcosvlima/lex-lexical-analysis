@@ -1,7 +1,7 @@
 .page{
   width: 1200px;
   height: auto;
-  margin: 75px auto 55px;
+  margin: 50px auto 55px;
 }
 
 .ribbon {
@@ -25,22 +25,27 @@ header {
   font-size: 20px;
   float: left;
   text-align: right;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .h-img {
     background-image: url(../img/logo.png);
 }
 
-.my-card{
-  width: 590px;
-  height: 100px;
-}
-
-.my-right{
+.main-container{
+  width: 65%;
+  margin-right: 20px;
   float: right;
+  margin-right: 15px;
 }
 
-.my-left{
-  float:left;
+.input-container{
+  width: 30%;
+  float: left;
+  border-right-width: thin;
+  border-right-width: 6px;
+}
+
+.center{
+  text-align: center;
 }

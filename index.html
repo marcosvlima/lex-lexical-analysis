@@ -17,28 +17,90 @@
     </header>
     <div class="page">
 
-      <div class="card small my-card my-left">
-        <!-- Card Content -->
-      </div>
-      <div class="card small my-card my-right">
-        <!-- Card Content -->
+      <div class="input-field col s12 input-container">
+          <h5>Entrada dos Tokens</h5>
+          <form id="form-token">
+            <input id="input-token" type="text" placeholder="Aqui vai alguma informação">
+            <button class="btn waves-effect waves-light grey" type="submit" name="action">Limpar
+              <i class="material-icons right">clear</i>
+            </button>
+            <button class="btn waves-effect waves-light" id="btn-input-token" type="submit" name="action">Gravar
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+
+          <div class="registered-tokens">
+            <p id="list-tokens"></p>
+          </div>
       </div>
 
-
-      <!--
-      <h5>Entrada dos Tokens</h5>
-      <div class="input-field col s12">
-        <input id="input-token" type="text" placeholder="Aqui vai alguma informação">
-        <button class="btn waves-effect waves-light grey" type="submit" name="action">Limpar
-          <i class="material-icons right">clear</i>
-        </button>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
-          <i class="material-icons right">send</i>
-        </button>
+      <div class="input-field col s12 main-container">
         <h5>Buscar Tokens Cadastrados</h5>
         <input id="search-token" type="text">
-      </div>
-    -->
+          <table id="table">
+      			<tbody>
+      				<tr>
+      				  <th>Estado</th>
+      					<th>a</th>
+      					<th>b</th>
+      					<th>c</th>
+      					<th>d</th>
+      					<th>e</th>
+      					<th>f</th>
+      					<th>g</th>
+      					<th>h</th>
+      					<th>i</th>
+      					<th>j</th>
+      					<th>k</th>
+      					<th>l</th>
+      					<th>m</th>
+      					<th>n</th>
+      					<th>o</th>
+      					<th>p</th>
+      					<th>q</th>
+      					<th>r</th>
+      					<th>s</th>
+      					<th>t</th>
+      					<th>u</th>
+      					<th>v</th>
+      					<th>w</th>
+      					<th>x</th>
+      					<th>y</th>
+      					<th>z</th>
+      				</tr>
+      				<tr class="initial-state">
+      					<td>q0</td>
+      					<td class="word-a"></td>
+      					<td class="word-b"></td>
+      					<td class="word-c"></td>
+      					<td class="word-d"></td>
+      					<td class="word-e"></td>
+      					<td class="word-f"></td>
+      					<td class="word-g"></td>
+      					<td class="word-h"></td>
+      					<td class="word-i"></td>
+      					<td class="word-j"></td>
+      					<td class="word-k"></td>
+      					<td class="word-l"></td>
+      					<td class="word-m"></td>
+      					<td class="word-n"></td>
+      					<td class="word-o"></td>
+      					<td class="word-p"></td>
+      					<td class="word-q"></td>
+      					<td class="word-r"></td>
+      					<td class="word-s"></td>
+      					<td class="word-t"></td>
+      					<td class="word-u"></td>
+      					<td class="word-v"></td>
+      					<td class="word-w"></td>
+      					<td class="word-x"></td>
+      					<td class="word-y"></td>
+      					<td class="word-z"></td>
+        			</tr>
+        		</tbody>
+		   </table>
     </div>
   </body>
 </html>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/lexical-analysis.js"></script>
