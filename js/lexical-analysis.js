@@ -22,11 +22,12 @@ $( "#form-token" ).submit(function( event ) {
   }
 
   var html_dicionario_div = $( "<h6 class='center'>Dicionário</h6>")
-  var html_eol = $( "<br>")
   $('.registered-tokens').prepend(html_dicionario_div);
   var tokens_size = tokens.length;
+
   for (i = 0; i < tokens_size; i++) {
-    $('#list-tokens').prepend(tokens[i], html_eol);
+    console.log(tokens[i]);
+    $('#list-tokens').prepend(tokens[i] + '<br>');
   }
 
   var states = [[]];
@@ -129,3 +130,6 @@ $( "#form-token" ).submit(function( event ) {
     html_table.append(html_tr);
   }
 });
+
+
+// show tokens function
