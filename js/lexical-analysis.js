@@ -7,6 +7,8 @@
 // main
 $( "#form-token" ).submit(function( event ) {
   console.log( "Token .submit() is called." );
+  document.getElementById("btn-input-token").style.visibility = "hidden";
+
   event.preventDefault();
 
   var words = $('#input-token').val();

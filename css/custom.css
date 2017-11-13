@@ -49,3 +49,15 @@ header {
 .center{
   text-align: center;
 }
+
+#form-clear{
+  float: left;
+}
+
+#form-token{
+  float: right;
+}
+
+.registered-tokens{
+  padding-top: 40px;
+}

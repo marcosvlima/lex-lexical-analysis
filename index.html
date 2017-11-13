@@ -19,16 +19,17 @@
 
       <div class="input-field col s12 input-container">
           <h5>Entrada dos Tokens</h5>
-          <form id="form-token">
-            <input id="input-token" autocomplete="off" type="text" placeholder="Aqui vai alguma informação">
-            <button class="btn waves-effect waves-light grey" type="submit" name="action">Limpar
+            <input id="input-token" autocomplete="off" type="text" placeholder="Separe os tokens com espaços.">
+          <form id="form-clear">
+            <button class="btn waves-effect waves-light grey" type="submit" name="action">Recarregar
               <i class="material-icons right">clear</i>
             </button>
+          </form>
+          <form id="form-token">
             <button class="btn waves-effect waves-light" id="btn-input-token" type="submit" name="action">Gravar
               <i class="material-icons right">send</i>
             </button>
           </form>
-
           <div class="registered-tokens">
             <p id="list-tokens"></p>
           </div>
