@@ -5,11 +5,13 @@
 */
 
 // main
+globalTable = [];
+
 $( "#form-token" ).submit(function( event ) {
   console.log( "Token .submit() is called." );
   document.getElementById("btn-input-token").style.visibility = "hidden";
 
-  event.preventDefault();
+
 
   var words = $('#input-token').val();
 
@@ -86,6 +88,8 @@ $( "#form-token" ).submit(function( event ) {
   }
   console.log(array_tmp);
 
+  globalTable = array_tmp;
+
   /*   Tabela   */
   var html_table = $('table');
   html_table.html('');
@@ -131,7 +135,69 @@ $( "#form-token" ).submit(function( event ) {
     }
     html_table.append(html_tr);
   }
+
+  event.preventDefault();
+  return false;
 });
 
-
 // show tokens function
+$( '#search-token' ).keyup(function(event) {
+  // put condicional here if length table > 0 call function to validate words.
+  if (globalTable.length > 0) {
+
+    var symbol = $('#search-token').val();
+    console.log(symbol);
+    var symbol_length = symbol.length;
+    //console.log(symbol_length);
+
+    if (symbol_length == 0) {
+      $('#search-token').removeClass('ac');
+  		$('#search-token').removeClass('wa');
+  		$('#table tr').removeClass('state-match');
+  		$('#table td').removeClass('symbol-match');
+    }
+
+    var first = 'a';
+    var last = 'z';
+    var states = 0;
+    for (i = 0; i < symbol.length; i++) {
+      if (symbol[i].charCodeAt(0) >= first.charCodeAt(0) && symbol[i].charCodeAt(0) <= last.charCodeAt(0)) {
+        $('#table tr').removeClass('state-match');
+        $('#table td').removeClass('symbol-match');
+        console.log('aqui!');
+        console.log(states);
+        console.log(symbol);
+        $('#table .states_' + states).addClass('state-match');
+        $('#table .word-' + symbol[i]).addClass('symbol-match');
+        //console.log(symbol[i]);
+        //console.log(state);
+        //console.log('teste2');
+        console.log(globalTable[states][symbol[i]]); //t?
+        if (globalTable[states][symbol[i]] != '-') {
+          states = globalTable[states][symbol[i]];
+          $( '#search-token').removeClass('ac');
+          $( '#search-token').addClass('wa');
+        } else {
+          $( '#search-token').removeClass('ac');
+          $( '#search-token').addClass('wa');
+        }
+      } else if (symbol[i] == ' ') {
+          $('#table tr').removeClass('state_match');
+        	$('#table td').removeClass('symbol_match');
+        	$('#table .states_' + states).addClass('state_match');
+        	$('#table .word-' + symbol[i]).addClass('symbol_match');
+
+          if (globalTable[states]['terminal']) {
+            states = 0;
+          } else {
+            $( '#search-token').removeClass('ac');
+            $( '#search-token').addClass('wa');
+            break;
+          }
+      }  else {
+         alert('Caractere não suportado: ' + symbol[i]);
+         break;
+      }
+    }
+  }
+})
