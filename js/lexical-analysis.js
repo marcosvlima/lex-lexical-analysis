@@ -19,133 +19,190 @@ for (i = 0; i < dictionary.length; i++) {
   $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:removeWord(' + i + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
 }
 
-/* remover - monta tabela conforme dicionario */
+stateMachine();
 
-/* cria a máquina de estados */
-// (6) [Array(0), Array(0), Array(0), Array(0), Array(0), Array(0)]
-// 0
-// :
-// [t: 1]
-// 1
-// :
-// [e: 2]
-// 2
-// :
-// [s: 3]
-// 3
-// :
-// [t: 4]
-// 4
-// :
-// [e: 5]
-// 5
-// :
-// [terminal: true]
+$( "#form-token" ).submit(function( event ) {
+  console.log( "Token .submit() is called." );
 
-var states = [[]];
-var next = 0;
-var overview = 0;
+  var words = $('#input-token').val();
 
-//var tokens_size = dictionary.length;
-for (i = 0; i < dictionary.length; i++) {
-  var symbol = dictionary[i];
-  var current = 0;
+  words = words.toLowerCase();
 
-  for (j = 0; j < symbol.length; j++) {
-    //var teste = states[initial_state][iterator_tokens];
-    var type = typeof states[current][symbol[j]];
-    // console.log(type);
-    if (type === typeof undefined){
-      //console.log('Is a undefined')
-      next = overview + 1;
-      //console.log(next);
-      states[current][symbol[j]] = next;
-      //console.log(states);
-      states[next] = [];
-      //console.log(states[next]);
-      current = next;
-      overview = current;
-    } else {
-      console.log('defined');
-      current = states[current][symbol[j]];
-    }
-    if (j == symbol.length -1) {
-      states[current]['terminal'] = true;
-    }
-  }
-  console.log(states); //-> states debug
-}
-
-
-/* Mapea com a chave [estados][symbol] */
-var array_tmp = [];
-for (i = 0; i < states.length; i++) {
-    var swap = [];
-    swap['states'] = i;
+  if(words === "") {
+    alert('Por favor insira alguma palavra');
+  } else {
+    var valid_word = true;
 
     var first = 'a';
     var last = 'z';
-    for (j = first.charCodeAt(0); j <= last.charCodeAt(0); j++ ) {
-      var symbol = String.fromCharCode(j);
-      if (typeof states[i][symbol] === 'undefined') {
-        swap[symbol] = '-';
+    for (var i = 0; i < words.length; i++) {
+      if( words[i] === ' ' || !((words[i] >= first && words[i] <= last) )) {
+        console.log(words[i]);
+        alert('Por favor use apenas letras de A até Z: ' + words[i]);
+        valid_word = false;
+        break;
+      }
+  }
+
+  if (valid_word == true) {
+    words = words.split(' ');
+
+    if (words.length > 1) {
+      for (i = 0; i < words.length; i++ ) {
+        var duplicate_word = false;
+
+        if (words[i] !== "") {
+          for (j = 0; j < dictionary.length; j++) {
+            if (words[i] === dictionary[j]) {
+              duplicate_word = true;
+            }
+          }
+
+          if (duplicate_word === false) {
+            var value = dictionary.length;
+            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:removeWord(' + value + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+            dictionary.push(words[i]);
+          }
+        }
+      }
+    } else {
+        var duplicate_word = false;
+
+        for (j = 0; j < dictionary.length; j++) {
+          if(words[0] === dictionary[j]){
+            duplicate_word = true;
+          }
+        }
+
+        if (duplicate_word === false) {
+          var value = dictionary.length;
+          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:removeWord(' + value + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+          dictionary.push(words[0]);
+        }
+      }
+
+    $( '#input-token').val("");
+  }
+}
+  $( 'table').empty();
+
+  stateMachine();
+
+  event.preventDefault();
+  return false;
+});
+
+// deletar palavras
+
+// gerar auto-complete
+
+function stateMachine() {
+  var states = [[]];
+  var next = 0;
+  var overview = 0;
+
+  //var tokens_size = dictionary.length;
+  for (i = 0; i < dictionary.length; i++) {
+    var symbol = dictionary[i];
+    var current = 0;
+
+    for (j = 0; j < symbol.length; j++) {
+      //var teste = states[initial_state][iterator_tokens];
+      var type = typeof states[current][symbol[j]];
+      // console.log(type);
+      if (type === typeof undefined){
+        //console.log('Is a undefined')
+        next = overview + 1;
+        //console.log(next);
+        states[current][symbol[j]] = next;
+        //console.log(states);
+        states[next] = [];
+        //console.log(states[next]);
+        current = next;
+        overview = current;
       } else {
-        swap[symbol] = states[i][symbol];
+        console.log('defined');
+        current = states[current][symbol[j]];
+      }
+      if (j == symbol.length -1) {
+        states[current]['terminal'] = true;
       }
     }
-    if (typeof states[i]['terminal'] !== 'undefined') {
-      swap['terminal'] = true;
-    }
-    array_tmp.push(swap);
-}
-console.log(array_tmp);
-
-globalTable = array_tmp;
-
-/*   Tabela   */
-var html_table = $('table');
-html_table.html('');
-
-var html_tr = $(document.createElement('tr'));
-var html_th = $(document.createElement('th'));
-
-html_th.html('Estado');
-html_tr.append(html_th);
-
-// console.log(first);
-// console.log(last);
-
-for (i = first.charCodeAt(0); i <= last.charCodeAt(0); i++) {
-  var html_th = $(document.createElement('th'));
-  html_th.html(String.fromCharCode(i));
-  html_tr.append(html_th);
-}
-html_table.append(html_tr);
-
-for (i = 0; i < array_tmp.length; i++) {
-  var html_tr = $(document.createElement('tr'));
-  var html_td = $(document.createElement('td'));
-
-  if (array_tmp[i]['terminal']) {
-    html_td.html('q' + array_tmp[i]['states'] + '*');
-  } else {
-    html_td.html('q' + array_tmp[i]['states']);
+    console.log(states); //-> states debug
   }
-  html_tr.append(html_td);
-  html_tr.addClass('states_'+array_tmp[i]['states']);
 
-  for (j = first.charCodeAt(0); j <= last.charCodeAt(0); j++) {
-    var symbol = String.fromCharCode(j);
 
-    var html_td = $(document.createElement('td'));
-    html_td.addClass('word-'+symbol);
+  /* Mapea com a chave [estados][symbol] */
+  var array_tmp = [];
+  for (i = 0; i < states.length; i++) {
+      var swap = [];
+      swap['states'] = i;
 
-    if (array_tmp[i][symbol] != '-') {
-      html_td.html('q' + array_tmp[i][symbol]);
-    }
-    html_tr.append(html_td);
+      var first = 'a';
+      var last = 'z';
+      for (j = first.charCodeAt(0); j <= last.charCodeAt(0); j++ ) {
+        var symbol = String.fromCharCode(j);
+        if (typeof states[i][symbol] === 'undefined') {
+          swap[symbol] = '-';
+        } else {
+          swap[symbol] = states[i][symbol];
+        }
+      }
+      if (typeof states[i]['terminal'] !== 'undefined') {
+        swap['terminal'] = true;
+      }
+      array_tmp.push(swap);
+  }
+  console.log(array_tmp);
+
+  globalTable = array_tmp;
+
+  /*   Tabela   */
+  var html_table = $('table');
+  html_table.html('');
+
+  var html_tr = $(document.createElement('tr'));
+  var html_th = $(document.createElement('th'));
+
+  html_th.html('Estado');
+  html_tr.append(html_th);
+
+  // console.log(first);
+  // console.log(last);
+
+  for (i = first.charCodeAt(0); i <= last.charCodeAt(0); i++) {
+    var html_th = $(document.createElement('th'));
+    html_th.html(String.fromCharCode(i));
+    html_tr.append(html_th);
   }
   html_table.append(html_tr);
+
+  for (i = 0; i < array_tmp.length; i++) {
+    var html_tr = $(document.createElement('tr'));
+    var html_td = $(document.createElement('td'));
+
+    if (array_tmp[i]['terminal']) {
+      html_td.html('q' + array_tmp[i]['states'] + '*');
+    } else {
+      html_td.html('q' + array_tmp[i]['states']);
+    }
+    html_tr.append(html_td);
+    html_tr.addClass('states_'+array_tmp[i]['states']);
+
+    for (j = first.charCodeAt(0); j <= last.charCodeAt(0); j++) {
+      var symbol = String.fromCharCode(j);
+
+      var html_td = $(document.createElement('td'));
+      html_td.addClass('word-'+symbol);
+
+      if (array_tmp[i][symbol] != '-') {
+        html_td.html('q' + array_tmp[i][symbol]);
+      }
+      html_tr.append(html_td);
+    }
+    html_table.append(html_tr);
+  }
+
 }
 
 $( '#search-token' ).keyup(function(event) {
