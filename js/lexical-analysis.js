@@ -16,7 +16,7 @@ globalTable = [];
 dictionary = ['teste'];
 
 for (i = 0; i < dictionary.length; i++) {
-  $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:removeWord(' + i + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+  $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
 }
 
 stateMachine();
@@ -60,7 +60,7 @@ $( "#form-token" ).submit(function( event ) {
 
           if (duplicate_word === false) {
             var value = dictionary.length;
-            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:removeWord(' + value + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
             dictionary.push(words[i]);
           }
         }
@@ -76,7 +76,7 @@ $( "#form-token" ).submit(function( event ) {
 
         if (duplicate_word === false) {
           var value = dictionary.length;
-          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:removeWord(' + value + '); class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
           dictionary.push(words[0]);
         }
       }
@@ -93,8 +93,35 @@ $( "#form-token" ).submit(function( event ) {
 });
 
 // deletar palavras
+function deleteFromDic(event) {
+  console.log('Here');
+  var token_to_remove = dictionary[event];
+  var tmp = [];
+
+  for (i = 0; i < dictionary.length; i++ ) {
+    var symbol = dictionary[i];
+
+    if (symbol !== token_to_remove) {
+      tmp.push(symbol);
+    }
+  }
+  dictionary = [];
+  dictionary = tmp;
+  tmp = [];
+
+  $('#dictionary-list').empty();
+  $('#table').empty();
+  for (i = 0; i < dictionary.length; i++) {
+    $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+
+  }
+  //metodo para montar estados e a tabela
+  stateMachine();
+}
 
 // gerar auto-complete
+
+
 
 function stateMachine() {
   var states = [[]];
