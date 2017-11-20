@@ -36,7 +36,7 @@ $( "#form-token" ).submit(function( event ) {
     var first = 'a';
     var last = 'z';
     for (var i = 0; i < words.length; i++) {
-      if( words[i] === ' ' || !((words[i] >= first && words[i] <= last) )) {
+      if( !((words[i] >= first && words[i] <= last) || words[i] === ' ' )) {
         console.log(words[i]);
         alert('Por favor use apenas letras de A até Z: ' + words[i]);
         valid_word = false;
@@ -45,7 +45,7 @@ $( "#form-token" ).submit(function( event ) {
   }
 
   if (valid_word == true) {
-    words = words.split(' ');
+    words = words.split(" ");
 
     if (words.length > 1) {
       for (i = 0; i < words.length; i++ ) {
