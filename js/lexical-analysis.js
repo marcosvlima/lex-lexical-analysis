@@ -16,7 +16,7 @@ globalTable = [];
 dictionary = ['teste'];
 
 for (i = 0; i < dictionary.length; i++) {
-  $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+  $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
 }
 
 stateMachine();
