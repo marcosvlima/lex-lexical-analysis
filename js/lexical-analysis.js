@@ -238,8 +238,8 @@ $( '#search-token' ).keyup(function(event) {
     var symbol = $('#search-token').val();
     var state = 0;
     if (symbol.length == 0) {
-      $('#search-token').removeClass('ac');
-  		$('#search-token').removeClass('wa');
+      $('#search-token').removeClass('valid');
+  		$('#search-token').removeClass('invalid');
   		$('#table tr').removeClass('state-match');
   		$('#table td').removeClass('symbol-match');
     }
@@ -253,11 +253,11 @@ $( '#search-token' ).keyup(function(event) {
         $('#table .word-' + symbol[i]).addClass('symbol-match');
         if(globalTable[state][symbol[i]] != '-'){
           state = globalTable[state][symbol[i]];
-          $('#validate').addClass('correct');
-          $('#validate').removeClass('error');
+          $('#search-token').addClass('valid');
+          $('#search-token').removeClass('invalid');
         } else {
-          $('#validate').removeClass('correct');
-          $('#validate').addClass('error');
+          $('#search-token').removeClass('valid');
+          $('#search-token').addClass('invalid');
           break;
         }
       } else if(symbol[i] == ' '){ //verifica se o caracter digitado é espaço
@@ -268,13 +268,13 @@ $( '#search-token' ).keyup(function(event) {
         if(globalTable[state]['terminal']){
           state = 0;
         } else {
-          $('#validate').removeClass('correct');
-          $('#validate').addClass('error');
+          $('#search-token').removeClass('valid');
+          $('#search-token').addClass('invalid');
           break;
         }
       } else { //se nao for caracter do alfabeto nem espaço, é adicionado classe de erro
-        $('#validate').removeClass('correct');
-        $('#validate').addClass('error');
+        $('#search-token').removeClass('valid');
+        $('#search-token').addClass('invalid');
         alert('Caractere fora do range: ' + symbol[i]);
         break;
       }
