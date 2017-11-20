@@ -87,33 +87,23 @@ header {
   width: 3%;
 }
 
-/* here */
-
-/*#campo.erro{
-	background: #ed2d2d;
-	background: rgba(237,45,45,0.6);
-}
-#campo.acerto{
-	background: #58cc1e;
-	background: rgba(88,204,30,0.6);
-}*/
-
-
-#search-tokens.erro{
+/*Here i need use materialize validator*/
+/*#search-tokens.erro{
 	background: #ed2d2d;
 	background: rgba(237,45,45,0.6);
 }
 #search-tokens.acerto{
 	background: #58cc1e;
 	background: rgba(12, 241, 72, 0.83);
-}
+}*/
 
 
-.states-match,
+.state-match td,
 .symbol-match{
 	background: #4d90fe;
 }
-/*.states-match td.symbol-match{
+
+.state-match td.symbol-match{
 	color: black;
 	background: blue;
-}*/
+/
