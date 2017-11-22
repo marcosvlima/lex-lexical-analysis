@@ -219,6 +219,8 @@ function stateMachine() {
 
       if (array_tmp[i][symbol] != '-') {
         html_td.html('q' + array_tmp[i][symbol]);
+      } else {
+        html_td.html('-');
       }
       html_tr.append(html_td);
     }
