@@ -6,11 +6,6 @@
 * MIT LICENSE
 */
 
-/*
-*
-*
-*/
-
 globalTable = [];
 // remove
 dictionary = ['teste'];
@@ -60,7 +55,7 @@ $( "#form-token" ).submit(function( event ) {
 
           if (duplicate_word === false) {
             var value = dictionary.length;
-            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
             dictionary.push(words[i]);
           }
         }
@@ -76,7 +71,7 @@ $( "#form-token" ).submit(function( event ) {
 
         if (duplicate_word === false) {
           var value = dictionary.length;
-          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
           dictionary.push(words[0]);
         }
       }
@@ -112,7 +107,7 @@ function deleteFromDic(event) {
   $('#dictionary-list').empty();
   $('#table').empty();
   for (i = 0; i < dictionary.length; i++) {
-    $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons">cancel</i></a></li>'));
+    $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
 
   }
   //metodo para montar estados e a tabela

@@ -72,7 +72,7 @@ header {
 }
 
 #table th{
-	background: #eeeeee;
+	background: #e0e0e0;
 	/*padding: 10px 0;*/
 	color: black;
 	border: 1px solid #9e9e9e;
@@ -89,7 +89,7 @@ header {
 
 .state-match td,
 .symbol-match{
-	background: #eeeeee;
+	background: #e0e0e0;
 }
 
 .state-match td.symbol-match{
