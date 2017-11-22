@@ -7,14 +7,18 @@
 */
 
 globalTable = [];
-// remove
-dictionary = ['teste'];
 
-for (i = 0; i < dictionary.length; i++) {
-  $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
-}
+dictionary = [];
+
+dictionaryListAdd(dictionary);
 
 stateMachine();
+
+function dictionaryListAdd(dictionary) {
+  for (i = 0; i < dictionary.length; i++) {
+    $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
+  }
+}
 
 $( "#form-token" ).submit(function( event ) {
   console.log( "Token .submit() is called." );
@@ -106,11 +110,9 @@ function deleteFromDic(event) {
 
   $('#dictionary-list').empty();
   $('#table').empty();
-  for (i = 0; i < dictionary.length; i++) {
-    $('#dictionary-list').append($('<li class="collection-item" id="word' + i + '">' + dictionary[i] + '<a href="javascript:deleteFromDic(' + i + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
 
-  }
-  //metodo para montar estados e a tabela
+  dictionaryListAdd(dictionary);
+
   stateMachine();
 }
 
