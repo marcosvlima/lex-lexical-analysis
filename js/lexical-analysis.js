@@ -44,7 +44,7 @@ $( "#form-token" ).submit(function( event ) {
     for (var i = 0; i < words.length; i++) {
       if( !((words[i] >= first && words[i] <= last) || words[i] === ' ' )) {
         console.log(words[i]);
-        alert('Por favor use apenas letras de A até Z: ' + words[i]);
+        alert('Por favor use apenas letras de A até Z');
         valid_word = false;
         break;
       }
