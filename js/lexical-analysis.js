@@ -26,6 +26,7 @@ function dictionaryListEdit(dictionary, words) {
   dictionary.push(words);
 }
 
+/* Grava palavra no dicionario e valida */
 $( "#form-token" ).submit(function( event ) {
   console.log( "Token .submit() is called." );
 
@@ -95,7 +96,6 @@ $( "#form-token" ).submit(function( event ) {
 
 // deletar palavras
 function deleteFromDic(event) {
-  console.log('Here');
   var token_to_remove = dictionary[event];
   var tmp = [];
 
@@ -118,10 +118,9 @@ function deleteFromDic(event) {
   stateMachine();
 }
 
-// gerar auto-complete
+// gerar auto-complete (não implementado ainda)
 
-
-
+/* Maquina de estados */
 function stateMachine() {
   var states = [[]];
   var next = 0;
@@ -151,7 +150,7 @@ function stateMachine() {
         current = states[current][symbol[j]];
       }
       if (j == symbol.length -1) {
-        states[current]['terminal'] = true;
+        states[current]['final'] = true;
       }
     }
     console.log(states); //-> states debug
@@ -168,14 +167,16 @@ function stateMachine() {
       var last = 'z';
       for (j = first.charCodeAt(0); j <= last.charCodeAt(0); j++ ) {
         var symbol = String.fromCharCode(j);
-        if (typeof states[i][symbol] === 'undefined') {
+
+        var type = typeof states[i][symbol];
+        if (type === typeof undefined) {
           swap[symbol] = '-';
         } else {
           swap[symbol] = states[i][symbol];
         }
       }
-      if (typeof states[i]['terminal'] !== 'undefined') {
-        swap['terminal'] = true;
+      if (typeof states[i]['final'] !== 'undefined') {
+        swap['final'] = true;
       }
       array_tmp.push(swap);
   }
@@ -207,7 +208,7 @@ function stateMachine() {
     var html_tr = $(document.createElement('tr'));
     var html_td = $(document.createElement('td'));
 
-    if (array_tmp[i]['terminal']) {
+    if (array_tmp[i]['final']) {
       html_td.html('q' + array_tmp[i]['states'] + '*');
     } else {
       html_td.html('q' + array_tmp[i]['states']);
@@ -234,7 +235,7 @@ function stateMachine() {
 }
 
 $( '#search-token' ).keyup(function(event) {
-  console.log('aqui');
+  // console.log('aqui');
   if (globalTable.length > 0) {
     var symbol = $('#search-token').val();
     var state = 0;
@@ -246,12 +247,12 @@ $( '#search-token' ).keyup(function(event) {
     }
 
     for (var i = 0; i < symbol.length; i++) {
-  //verifica se sao caracteres do alfabeto ('a' a 'z')
       if(symbol[i] >= 'a' && symbol[i] <= 'z'){
         $('#table tr').removeClass('state-match');
         $('#table td').removeClass('symbol-match');
         $('#table .states_' + state).addClass('state-match');
         $('#table .word-' + symbol[i]).addClass('symbol-match');
+
         if(globalTable[state][symbol[i]] != '-'){
           state = globalTable[state][symbol[i]];
           $('#search-token').addClass('valid');
@@ -261,22 +262,23 @@ $( '#search-token' ).keyup(function(event) {
           $('#search-token').addClass('invalid');
           break;
         }
-      } else if(symbol[i] == ' '){ //verifica se o caracter digitado é espaço
+      } else if(symbol[i] == ' '){
         $('#table tr').removeClass('state-match');
         $('#table td').removeClass('symbol-match');
         $('#table .states_' + state).addClass('state-match');
         $('#table .word-' + symbol[i]).addClass('symbol-match');
-        if(globalTable[state]['terminal']){
+
+        if(globalTable[state]['final']){
           state = 0;
         } else {
           $('#search-token').removeClass('valid');
           $('#search-token').addClass('invalid');
           break;
         }
-      } else { //se nao for caracter do alfabeto nem espaço, é adicionado classe de erro
+      } else {
         $('#search-token').removeClass('valid');
         $('#search-token').addClass('invalid');
-        alert('Caractere fora do range: ' + symbol[i]);
+        alert('Símbolo invalido!: ' + symbol[i]);
         break;
       }
     };
