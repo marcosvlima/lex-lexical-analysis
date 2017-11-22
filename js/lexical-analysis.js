@@ -20,6 +20,12 @@ function dictionaryListAdd(dictionary) {
   }
 }
 
+function dictionaryListEdit(dictionary, words) {
+  var value = dictionary.length;
+  $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
+  dictionary.push(words);
+}
+
 $( "#form-token" ).submit(function( event ) {
   console.log( "Token .submit() is called." );
 
@@ -58,9 +64,7 @@ $( "#form-token" ).submit(function( event ) {
           }
 
           if (duplicate_word === false) {
-            var value = dictionary.length;
-            $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[i] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
-            dictionary.push(words[i]);
+            dictionaryListEdit(dictionary, words[i]);
           }
         }
       }
@@ -74,9 +78,7 @@ $( "#form-token" ).submit(function( event ) {
         }
 
         if (duplicate_word === false) {
-          var value = dictionary.length;
-          $('#dictionary-list').append($('<li class="collection-item" id="word' + value + '">' +  words[0] + '<a href="javascript:deleteFromDic(' + value + ');" class="icon-remove secondary-content" title="Remover"><i class="material-icons red-darken-2">cancel</i></a></li>'));
-          dictionary.push(words[0]);
+          dictionaryListEdit(dictionary, words[0]);
         }
       }
 
